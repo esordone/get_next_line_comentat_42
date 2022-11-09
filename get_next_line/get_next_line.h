@@ -6,13 +6,14 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 11:13:44 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/07 17:27:58 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:41:39 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # include <stdio.h>
+# include <unistd.h>
 # include <stdarg.h>
 # include <stdlib.h>
 
