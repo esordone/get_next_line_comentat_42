@@ -6,7 +6,7 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:13:35 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/07 17:28:16 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:29:20 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,26 @@ size_t	ft_strlen(const char *s)
 		i++;
 	}
 	return (i);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*n;
+	char	i;
+
+	n = (char *)s;
+	i = (char)c;
+	while (*n != i)
+	{
+		if (*n == 0)
+		{
+			return (NULL);
+		}
+		if (*n == '\0')
+			return (n);
+		n++;
+	}
+	return (n);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -51,6 +71,35 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	s3[len1] = '\0';
 	return (s3);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	unsigned int	n;
+	char			*s2;
+
+	if (!*s || start > ft_strlen(s))
+	{
+		s2 = (char *)malloc(sizeof(char) * (1));
+		if (!s2)
+			return (NULL);
+		s2[0] = '\0';
+		return (s2);
+	}
+	if (ft_strlen(s) - start < len)
+		len = ft_strlen(s) - start;
+	s2 = (char *)malloc(sizeof(char) * (len + 1));
+	if (!s2)
+		return (NULL);
+	n = 0;
+	while (s[start] && n < len)
+	{
+		s2[n] = s[start];
+		start++;
+		n++;
+	}
+	s2[n] = '\0';
+	return (s2);
 }
 
 char	*ft_strdup(const char *s1)
