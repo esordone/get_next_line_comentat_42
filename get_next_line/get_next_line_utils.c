@@ -6,7 +6,7 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:13:35 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/14 15:03:02 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/14 18:13:14 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i] != '\0')
 	{
 		i++;
@@ -31,17 +33,15 @@ char	*ft_strchr(char *s, int c)
 	i = (char)c;
 	if (!s)
 		return (NULL);
-	while (*s != i)
+	while (*s)
 	{
-		if (*s == 0)
-		{
-			return (NULL);
-		}
-		if (*s == '\0')
-			return (s);
+		if (*s == i)
+			return (&(*s));
 		s++;
 	}
-	return (s);
+	if (i == '\0')
+			return (&(*s));
+	return (NULL);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -51,8 +51,13 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	len1;
 
 	len1 = ft_strlen(s1);
+	if (!s1)
+	{
+		s1 = (char *)malloc(sizeof(char) * 1);
+		s1[0] = '\0';
+	}
 	s3 = (char *)malloc(sizeof(char) * (len1 + ft_strlen(s2) + 1));
-	if (!s1 || !s2 || !s3)
+	if (!s2 || !s3)
 		return (NULL);
 	i = 0;
 	while (s1[i] != '\0')

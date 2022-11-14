@@ -6,33 +6,24 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 11:12:31 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/14 15:03:44 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/14 18:10:37 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*void	ft_free(char **str)
-{
-	if (*str)
-	{
-		free(*str);
-		*str = NULL;
-	}
-}*/
-
 char	*read_file(int fd, char *str)
 {
-	static char	*tmp;
-	int			i;
+	char	*tmp;
+	int		i;
 
 	i = 1;
 	tmp = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!tmp)
 		return (NULL);
-	while (i != 0 && !(ft_strchr(str, '\n')))
+	while (!ft_strchr(str, '\n') && i != 0)
 	{
-		i = read(fd, str, BUFFER_SIZE);
+		i = read(fd, tmp, BUFFER_SIZE);
 		if (i == -1)
 		{
 			free(tmp);
@@ -42,7 +33,7 @@ char	*read_file(int fd, char *str)
 		//2. donde lo guardo (str)
 		//3. cuanto quiero leer (BUFFER)
 		tmp[i] = '\0';
-		ft_strjoin(str, tmp);
+		str = ft_strjoin(str, tmp);
 	}
 	free(tmp);
 	return (str);
@@ -51,14 +42,27 @@ char	*read_file(int fd, char *str)
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
+	//char		*line;
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = read_file(fd, buffer);
 	if (!buffer)
 		return (NULL);
 	return (buffer);
 }
+/*
+int	main(void)
+{
+	int	fd;
+
+    fd = open("/Users/esordone/get_next_line/text.txt", O_RDONLY);
+	printf("fd == %i\n", fd);
+	printf("La primera linea contiene: %s\n", get_next_line(fd));
+	printf("La segunda linea contiene: %s\n", get_next_line(fd));
+	close(fd);
+	return (0);
+}*/
 /*
 int main (int argc, char **argv)
 {
