@@ -6,13 +6,13 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:13:35 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/10 16:29:20 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:03:02 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char *s)
 {
 	int	i;
 
@@ -24,36 +24,34 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
-	char	*n;
 	char	i;
 
-	n = (char *)s;
 	i = (char)c;
-	while (*n != i)
+	if (!s)
+		return (NULL);
+	while (*s != i)
 	{
-		if (*n == 0)
+		if (*s == 0)
 		{
 			return (NULL);
 		}
-		if (*n == '\0')
-			return (n);
-		n++;
+		if (*s == '\0')
+			return (s);
+		s++;
 	}
-	return (n);
+	return (s);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s3;
 	size_t	i;
 	size_t	len1;
-	size_t	len2;
 
 	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	s3 = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	s3 = (char *)malloc(sizeof(char) * (len1 + ft_strlen(s2) + 1));
 	if (!s1 || !s2 || !s3)
 		return (NULL);
 	i = 0;
@@ -70,10 +68,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	s3[len1] = '\0';
+	free(s1);
 	return (s3);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	unsigned int	n;
 	char			*s2;
@@ -102,7 +101,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (s2);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	char	*p;
 	int		i;

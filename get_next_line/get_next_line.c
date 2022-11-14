@@ -6,20 +6,20 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 11:12:31 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/10 17:54:51 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:03:44 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_free(char **str)
+/*void	ft_free(char **str)
 {
 	if (*str)
 	{
 		free(*str);
 		*str = NULL;
 	}
-}
+}*/
 
 char	*read_file(int fd, char *str)
 {
@@ -27,13 +27,13 @@ char	*read_file(int fd, char *str)
 	int			i;
 
 	i = 1;
-	tmp = (char *)malloc (sizeof(char) * BUFFER_SIZE);
+	tmp = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!tmp)
 		return (NULL);
-	while (i > 0)
+	while (i != 0 && !(ft_strchr(str, '\n')))
 	{
 		i = read(fd, str, BUFFER_SIZE);
-		if (i == 0)
+		if (i == -1)
 		{
 			free(tmp);
 			return (NULL);
@@ -41,17 +41,15 @@ char	*read_file(int fd, char *str)
 		//1. de donde leo (fd)
 		//2. donde lo guardo (str)
 		//3. cuanto quiero leer (BUFFER)
-		tmp[i] = 0;
-		str = ft_free(tmp);
-		//para quan trobes un \n
-		//if (ft_strchr(i, '\n')
+		tmp[i] = '\0';
+		ft_strjoin(str, tmp);
 	}
-	free(i);
-	return (tmp);
+	free(tmp);
+	return (str);
 }
+
 char	*get_next_line(int fd)
 {
-	char		*line;
 	static char	*buffer;
 
 	if (fd < 0)
@@ -59,11 +57,9 @@ char	*get_next_line(int fd)
 	buffer = read_file(fd, buffer);
 	if (!buffer)
 		return (NULL);
-	if (buffer != NULL)
-		free(buffer);
 	return (buffer);
 }
-
+/*
 int main (int argc, char **argv)
 {
 	int		fd;
@@ -84,4 +80,4 @@ int main (int argc, char **argv)
 			free(str);
 	}
 	return (0);
-}
+}*/

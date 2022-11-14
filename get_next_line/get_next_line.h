@@ -6,7 +6,7 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 11:13:44 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/10 17:48:33 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/14 14:48:23 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 char	*get_next_line(int fd);
 void	ft_free(char **str);
 char	*read_file(int fd, char *str);
-char	*ft_strchr(const char *s, int c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(const char *s1);
-size_t	ft_strlen(const char *s);
+char	*ft_strchr(char *s, int c);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strdup(char *s1);
+size_t	ft_strlen(char *s);
 
 #endif
