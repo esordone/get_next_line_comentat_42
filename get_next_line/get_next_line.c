@@ -6,7 +6,7 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 11:12:31 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/15 12:52:06 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/15 16:01:38 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ char	*read_file(int fd, char *str)
 	i = 1;
 	tmp = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!tmp)
+	{
+		free(tmp);
 		return (NULL);
+	}
 	while (!ft_strchr(str, '\n') && i != 0)
 	{
 		i = read(fd, tmp, BUFFER_SIZE);
@@ -42,15 +45,13 @@ char	*read_file(int fd, char *str)
 		//2. donde lo guardo (str)
 		//3. cuanto quiero leer (BUFFER)
 		tmp[i] = '\0';
-		printf("Entra en el joinfree: |\n|");
 		str = ft_free(str, tmp);
-		printf("|%s\n|", str);
 	}
 	free(tmp);
 	return (str);
 }
 
-char	*read_line(char *str)
+char	*line(char *str)
 {
 	int		i;
 	char	*line;
@@ -60,31 +61,76 @@ char	*read_line(char *str)
 		return (NULL);
 	while (str[i] && str[i] != '\n')
 		i++;
+	/*line = (char *)malloc(sizeof(char) * i + 1);
+	if (!line)
+	{
+		free(line);
+		return (NULL);
+	}*/
 	line = ft_calloc(i + 2, sizeof(char));
 	i = 0;
-	while (str[i])
+	while (str[i] && str[i] != '\n')
 	{
 		line[i] = str[i];
 		i++;
 	}
 	if (str[i] && str[i] == '\n')
-		line[i++] = '\n';
+		line[i] = '\n';
+	//line[i] = '\0';
 	printf("Line contiene|%s\n", line);
 	return (line);
+}
+
+char	*next(char *str)
+{
+	int		i;
+	int		n;
+	static char	*next;
+
+	i = 0;
+	n = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (!str)
+	{
+		free(str);
+		return (NULL);
+	}
+	printf("Encuenta salto de linea en |%i|\n", i);
+	/*next = (char *)malloc(sizeof(char) * (ft_strlen(str) - i)+ 1);
+	if (!next)
+	{
+		free(next);
+		return (NULL);
+	}*/
+	next = ft_calloc((ft_strlen(str) - i + 1), sizeof(char));
+	/*if (!next)
+	{
+		free(next);
+		return (NULL);
+	}*/
+	//i++;
+	while (str[i])
+		next[n++] = str[i++];
+	printf("Next contiene |%s|\n", next);
+	//next[n] = '\0';
+	free(str);
+	return (next);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
-	char		*line;
+	char		*new_line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = read_file(fd, buffer);
 	if (!buffer)
 		return (NULL);
-	line = read_line(buffer);
-	return (line);
+	new_line = line(buffer);
+	buffer = next(new_line);
+	return (new_line);
 }
 
 int	main(void)

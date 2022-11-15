@@ -6,7 +6,7 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:13:35 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/15 12:51:28 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/15 15:35:36 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void	*ft_calloc(size_t count, size_t size)
 
 	p = (void *)malloc(size * count);
 	if (!p)
+	{
+		free(p);
 		return (NULL);
+	}
 	ft_bzero(p, size * count);
 	return (p);
 }
@@ -59,14 +62,12 @@ void	ft_bzero(void *s, size_t n)
 {
 	char	*str;
 	size_t	i;
-	size_t	num;
 
 	str = (char *)s;
-	num = 0;
 	i = 0;
 	while (i < n)
 	{
-		str[i] = num;
+		str[i] = '\0';
 		i++;
 	}
 }
@@ -96,5 +97,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	while (s2[i] != '\0')
 		s3[len1++] = s2[i++];
+	s3[len1] = 0;
 	return (s3);
 }
