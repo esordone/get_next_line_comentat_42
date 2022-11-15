@@ -6,7 +6,7 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:13:35 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/14 18:13:14 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/15 12:51:28 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,33 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*p;
+
+	p = (void *)malloc(size * count);
+	if (!p)
+		return (NULL);
+	ft_bzero(p, size * count);
+	return (p);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	char	*str;
+	size_t	i;
+	size_t	num;
+
+	str = (char *)s;
+	num = 0;
+	i = 0;
+	while (i < n)
+	{
+		str[i] = num;
+		i++;
+	}
+}
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s3;
@@ -53,11 +80,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	len1 = ft_strlen(s1);
 	if (!s1)
 	{
-		s1 = (char *)malloc(sizeof(char) * 1);
-		s1[0] = '\0';
+		s1 = ft_calloc(1, sizeof(char));
+		if(!s1)
+			return (NULL);
 	}
-	s3 = (char *)malloc(sizeof(char) * (len1 + ft_strlen(s2) + 1));
-	if (!s2 || !s3)
+	s3 = ft_calloc(len1 + ft_strlen(s2) + 1, sizeof(char));
+	if (!s3)
 		return (NULL);
 	i = 0;
 	while (s1[i] != '\0')
@@ -67,63 +95,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	i = 0;
 	while (s2[i] != '\0')
-	{
-		s3[len1] = s2[i];
-		len1++;
-		i++;
-	}
-	s3[len1] = '\0';
-	free(s1);
+		s3[len1++] = s2[i++];
 	return (s3);
-}
-
-char	*ft_substr(char *s, unsigned int start, size_t len)
-{
-	unsigned int	n;
-	char			*s2;
-
-	if (!*s || start > ft_strlen(s))
-	{
-		s2 = (char *)malloc(sizeof(char) * (1));
-		if (!s2)
-			return (NULL);
-		s2[0] = '\0';
-		return (s2);
-	}
-	if (ft_strlen(s) - start < len)
-		len = ft_strlen(s) - start;
-	s2 = (char *)malloc(sizeof(char) * (len + 1));
-	if (!s2)
-		return (NULL);
-	n = 0;
-	while (s[start] && n < len)
-	{
-		s2[n] = s[start];
-		start++;
-		n++;
-	}
-	s2[n] = '\0';
-	return (s2);
-}
-
-char	*ft_strdup(char *s1)
-{
-	char	*p;
-	int		i;
-	int		len;
-	char	*s;
-
-	s = (char *)s1;
-	len = ft_strlen(s1);
-	p = (char *)malloc(sizeof(char) * (len + 1));
-	if (!p)
-		return (NULL);
-	i = 0;
-	while (i < len && s[i] != '\0')
-	{
-		p[i] = s[i];
-		i++;
-	}
-	p[i] = '\0';
-	return (p);
 }
