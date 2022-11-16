@@ -6,7 +6,7 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 11:13:44 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/16 10:59:00 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/16 11:39:04 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 char	*get_next_line(int fd);
 char	*read_file(int fd, char *str);
 char	*next(char *str);
-char	*line(char *str);
+char	*the_line(char *str);
 void	*ft_free(char **str);
 char	*ft_strchr(char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);

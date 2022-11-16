@@ -6,7 +6,7 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 11:12:31 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/16 11:32:34 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/16 11:39:48 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*read_file(int fd, char *str)
 	return (str);
 }
 
-char	*line(char *str)
+char	*the_line(char *str)
 {
 	int		i;
 	char	*line;
@@ -113,7 +113,7 @@ char	*get_next_line(int fd)
 	buffer = read_file(fd, buffer);
 	if (!buffer)
 		return (NULL);
-	new_line = line(buffer);
+	new_line = the_line(buffer);
 	if (!new_line)
 		return (ft_free(&buffer));
 	buffer = next(buffer);
