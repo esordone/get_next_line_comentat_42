@@ -6,7 +6,7 @@
 /*   By: esordone <esordone@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 12:13:35 by esordone          #+#    #+#             */
-/*   Updated: 2022/11/15 15:35:36 by esordone         ###   ########.fr       */
+/*   Updated: 2022/11/16 11:27:11 by esordone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,27 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s3;
 	size_t	i;
+	//size_t	n;
 	size_t	len1;
 
 	len1 = ft_strlen(s1);
 	if (!s1)
 	{
-		s1 = ft_calloc(1, sizeof(char));
+		s1 = (char *)malloc(sizeof(char) * 1);
 		if(!s1)
 			return (NULL);
+		s1[0] = '\0';
 	}
-	s3 = ft_calloc(len1 + ft_strlen(s2) + 1, sizeof(char));
+	s3 = (char *)malloc(sizeof(char) * (len1 + ft_strlen(s2) + 1));
 	if (!s3)
-		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
-	{
+		return (ft_free(&s1));
+	i = -1;
+	while (s1[++i] != '\0')
 		s3[i] = s1[i];
-		i++;
-	}
 	i = 0;
 	while (s2[i] != '\0')
 		s3[len1++] = s2[i++];
-	s3[len1] = 0;
+	s3[len1] = '\0';
+	free(s1);
 	return (s3);
 }
